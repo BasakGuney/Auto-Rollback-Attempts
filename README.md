@@ -2,7 +2,7 @@
 
 > Content: Attempts to enable auto-rollback to the last "Healthy" commit when the app status is "Degraded".
 
-## Approach1:
+## Approach 1:
 Create an ArgoCD pod and run the login command in it to connect to your ArgoCD app. Then check the app status continuously from inside the pod. If the status is not "Healthy" or "Progressing", perform rollback.
 
 ```bash
@@ -105,7 +105,7 @@ done
 ```
 > Above, tries the revisions in a loop and checks the status of these revisions without applying the changes to app by using --dry-run option. If the revision status is "Healthy" performs rollback to this revision.
 
-## Issues of Approach1: 
+## Issues of Approach 1: 
 Example output of "sync --dry-run":
 ```txt
 Name:               argocd/<app>
@@ -136,10 +136,10 @@ apps   Deployment  <app>       client-deployment    Synced  Healthy        deplo
 - The output of --dry-run option shows the Health Status of the current commit, so we can't check the resulting status of the revision.
 - The --dry-run option only tests wether the pods can be created properly it doesn't check if the containers properly works after that. 
 
-## Approach2 
+## Approach 2 
 
 > There will be an ArgoCD pod and a git pod that tags each commit as "Healthy" if the app status is healthy or "Degraded" if the app status is degraded. Then when a rollback needed, the git pod searches for an older commit that has tagged "Healthy" and ArgoCD will sync with that commit.
 
-## Issues of Approach2
+## Issues of Approach 2
 - ArgoCD will send the status of the app to git pod and git pods will send the "Healthy" commit hash to ArgoCD pod so, ArgoCD and git pods have to communicate and this is an extra work.
 - It modifies the main repository.
