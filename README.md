@@ -141,5 +141,5 @@ apps   Deployment  <app>       client-deployment    Synced  Healthy        deplo
 > There will be an ArgoCD pod and a git pod that tags each commit as "Healthy" if the app status is healthy or "Degraded" if the app status is degraded. Then when a rollback needed, the git pod searches for an older commit that has tagged "Healthy" and ArgoCD will sync with that commit.
 
 ## Issues of Approach 2
-- ArgoCD will send the status of the app to git pod and git pods will send the "Healthy" commit hash to ArgoCD pod so, ArgoCD and git pods have to communicate and this is an extra work.
+- ArgoCD will send the status of the app to git pod and git pods will send the "Healthy" commit hash to ArgoCD pod so, ArgoCD and git pods have to communicate. This requires extra work.
 - It modifies the main repository.
