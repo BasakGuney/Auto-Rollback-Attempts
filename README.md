@@ -72,17 +72,19 @@ argocd login <IP:port> --username <username> --password <password> --insecure;
 STATUS=$(argocd app get $APP_NAME  | awk '/Health Status/ {print $3}')
 ```
 > The command above assigns Health Status value of the app to STATUS variable.
-
+<br>
 
  ```bash
  argocd app set $APP_NAME --sync-policy none
  ```
  > To perform rollback we have to disable auto-sync if it is enabled by running the command above.
+<br>
 
 ```bash
 revisions=$(argocd app history $APP_NAME | awk 'NR>1 {print $NF}' | sed 's/[()"]//g')
 ```
 > revisions is the array of revision hashes of the old commits.
+<br>
 
 ```bash
 for revision_id in $revisions; do
@@ -104,6 +106,7 @@ for revision_id in $revisions; do
 done
 ```
 > Above, tries the revisions in a loop and checks the status of these revisions without applying the changes to app by using --dry-run option. If the revision status is "Healthy" performs rollback to this revision.
+<br>
 
 ## Issues of Approach 1: 
 Example output of "sync --dry-run":
