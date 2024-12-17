@@ -137,7 +137,7 @@ apps   Deployment  <app>       client-deployment    Synced  Healthy        deplo
 
 ```
 - The output of --dry-run option shows the Health Status of the current commit, so we can't check the resulting status of the revision.
-- The --dry-run option only tests wether the pods can be created properly it doesn't check if the containers properly works after that. 
+- The --dry-run option only tests wether the pods can be created properly it doesn't check if the containers works properly after that. 
 
 ## Approach 2 
 
